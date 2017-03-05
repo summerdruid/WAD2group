@@ -1,3 +1,13 @@
 from django.shortcuts import render
+from django.http import HttpResponse
+from registration.backends.simple.views import RegistrationView
 
-# Create your views here.
+
+def index(request):
+    return render(request,'eventhub/base.html')
+
+
+#if successful at logging
+class MyRegistrationView(RegistrationView):
+    def get_success_url(self, user):
+        return '/eventhub/'
