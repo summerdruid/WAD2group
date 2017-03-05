@@ -2,35 +2,91 @@
 
 
 
-<html>
+<html lang="en">
 
 
-	<head>
-		<title>
-				{% block title_block %}
-					EventHub!
-				{% endblock %}
-		</title>
-		<h1>Welcom to EventHub</h1>
-	</head>
-	<body>
+<head>
+	<title>
+			{% block title_block %}
+				EventHub!
+			{% endblock %}
+	</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width-device-width, initial-scale=1">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</head>
+
+
+<body>
+	<nav class="navbar navbar-inverse" >
+		<div class="container-fluid">
+
+			<!-- logo -->
+			<div class="navbar-header">
+				<a href="/eventhub" class="navbar-brand">EventHub</a>
+			</div>
+
+			<!-- menu items-->
+			<div>
+				<ul class="nav navbar-nav navbar-top">
+					<li class="active"><a href="{% url 'index' %}">Home</a></li>
+					<li><a href="/eventhub/about">About</a></li>
+					<li><a href="/eventhub/recommended">Recommended</a></li>
+					<li><a href="/eventhub/create_event">Create Event</a></li>
+				{% if user.is_authenticated %}
+					<li><a href="{% url 'auth_logout' %}?next=/eventhub/">Logout</a></li>
+				{% else %}
+					<li><a href="{% url 'auth_login' %}">Sign In</a></li>
+					<li><a href="{% url 'registration_register' %}">Sign Up</a></li>
+				{% endif %}
+				</ul>
+			</div>
+
+		</div>
+	</nav>
+</div>
+
+		<!--left sidebar-->
+		<div class="col-lg-2" height="100%">
+			<div class="list-group">
+					<a href ="#" class="list-group-item">Search Bar</a>
+
+					<a href ="#" class="list-group-item">Search by:</a>
+			</div>
+		</div>
+		<!--middle-->
+		<div class="col-lg-8">
+			<div class="list-group">
+					<a href ="#" class="list-group-item">browse</a>
+
+
+			</div>
+		</div>
+
+		<!--right sidebar-->
+		<div class="col-lg-2">
+			<div class="list-group">
+					<a href ="#" class="list-group-item">Social Media</a>
+
+					<a href ="#" class="list-group-item">Recently visited</a>
+			</div>
+		</div>
+
+
+
+
 
 	<div>
-		{% block body_block %}
-		{% endblock %}
+			{% block body_block %}
+			{% endblock %}
 	</div>
-		<hr />
 
-		<div>
-			<ul>
-			{% if user.is_authenticated %}
-				<li><a href="{% url 'auth_logout' %}?next=/eventhub/">Logout</a></li>
-			{% else %}
-				<li><a href="{% url 'auth_login' %}">Sign In</a></li>
-				<li><a href="{% url 'registration_register' %}">Sign Up</a></li>
-			{% endif %}
-				<li><a href="/eventhub">index</a></li>
-			</ul>
-		</div>
-	</body>
+
+</body>
 </html>
