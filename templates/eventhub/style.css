@@ -1,5 +1,5 @@
 body {
-  background-color: #eeeeee;
+  background-color: #D3D3D3;
 }
 
 #header {
@@ -15,27 +15,75 @@ body {
 }
 
 #content {
-  background-color: #eeeeee;
+
 
 }
 
 #leftsidebar, #rightsidebar, #main{
   background-color: white;
-  border-style: solid;
-  padding: 10px;
-  border-color: #eeeeee;
+  padding: 20px;
   width: 20%;
   float: left;
-  height:500px;
+  height:800px;
+  border-radius: 30px;
+  border-color: #D3D3D3;
+  border-style: solid;
+
 }
 
+#leftsidebar{
+	border-right-width:10px;
+}
+
+#rightsidebar{
+	border-left-width:10px;
+}
 
 
 #main{
   width: 60%;
+  border-left-width: 10px;
+  border-right-width:10px;
 }
 
 #footer {
-  clear:both;
   padding-top: 17px;
 }
+
+/* media icons */
+.fa {
+	display: inline-block;
+    padding: 20px;
+    font-size: 30px;
+    width: 50px;
+    text-align: center;
+    
+}
+
+/* Add a hover effect if you want */
+.fa:hover {
+    opacity: 0.7;
+}
+
+/* Facebook */
+.fa-facebook {
+    background: #3B5998;
+    color: white;
+}
+
+/* google */
+.fa-google {
+    background: #db3236;
+    color: white;
+}
+
+
+.clear{
+	clear:both;
+}
+
+#icon{       
+	text-align: center;
+}
+
+

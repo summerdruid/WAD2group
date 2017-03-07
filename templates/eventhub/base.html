@@ -93,27 +93,36 @@
 						<div id="main">
 								{% block body_block %}
 										this is the main div
-										<ul class="pagination">
-											  <li><a href="#">1</a></li>
-											  <li><a href="#">2</a></li>
-											  <li><a href="#">3</a></li>
-											  <li><a href="#">4</a></li>
-											  <li><a href="#">5</a></li>
-										</ul>
-							{% endblock %}
+										
+								{% endblock %}
+								<ul class="pagination">
+										  <li><a href="#">1</a></li>
+										  <li><a href="#">2</a></li>
+										  <li><a href="#">3</a></li>
+										  <li><a href="#">4</a></li>
+										  <li><a href="#">5</a></li>
+								</ul>
 
 						</div><!-- main div end-->
 
 						<!--right-side-bar div-->
 						<div id="rightsidebar">
-								<!-- smedia div-->
-								<div>
-										<h4>Social Media</h4>
-								<hr>
+								<!-- media div-->
+								<h4>Social Media</h4>
+								<div id="icon">
+										
+										<!-- icon-->
+										<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+										<!--icons -->
+										<a href="#" class="fa fa-facebook"></a>
+										<a href="#" class="fa fa-google"></a>
+								
 							</div><!-- media div end-->
 
 								<!-- recently visited div-->
-								<div>
+								<div class="clear">
+										<hr>
 										<h4>Recently Visited</h4>
 
 								</div><!-- recent div end-->
@@ -123,7 +132,7 @@
 				</div><!--content div end-->
 
 				<!-- footer div -->
-				<div id="footer">
+				<div class="clear" id="footer" >
 						<nav class="navbar navbar-inverse" >
 								<div class="container">
 									<!-- menu items-->
