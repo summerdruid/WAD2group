@@ -10,6 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
+'''added static dirs - by mary'''
+
+
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -28,7 +31,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
-
+STATIC_DIR = os.path.join(BASE_DIR,'static')
 # Application definition
 
 INSTALLED_APPS = [
@@ -120,6 +123,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
+STATICFILES_DIRS = [STATIC_DIR,]
 STATIC_URL = '/static/'
 
 # If True, users can register

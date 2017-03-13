@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-
+{% load staticfiles %}
 
 <html lang="en">
 
@@ -19,7 +19,7 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 
 
@@ -84,6 +84,13 @@
 								<!-- searchby div-->
 								<div>
 										<h4>Search By</h4>
+										<ul>
+												  <li><a href="#">Date</a></li>
+												  <li><a href="#">Location</a></li>
+												  <li><a href="#">Category</a></li>
+										</ul>
+
+
 
 								</div><!-- searchbar div end-->
 
@@ -91,9 +98,10 @@
 
 						<!-- main div-->
 						<div id="main">
+
 								{% block body_block %}
 										this is the main div
-										
+
 								{% endblock %}
 								<ul class="pagination">
 										  <li><a href="#">1</a></li>
@@ -110,14 +118,14 @@
 								<!-- media div-->
 								<h4>Social Media</h4>
 								<div id="icon">
-										
+
 										<!-- icon-->
 										<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 										<!--icons -->
 										<a href="#" class="fa fa-facebook"></a>
 										<a href="#" class="fa fa-google"></a>
-								
+
 							</div><!-- media div end-->
 
 								<!-- recently visited div-->
