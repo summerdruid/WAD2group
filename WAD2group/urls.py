@@ -18,6 +18,8 @@ from django.contrib import admin
 from eventhub import views
 from django.conf.urls import include
 from registration.backends.simple.views import RegistrationView
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -25,4 +27,4 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^accounts/register/$', views.MyRegistrationView.as_view(), name='registration_register'),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

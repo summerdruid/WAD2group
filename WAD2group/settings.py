@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
-'''added static dirs - by mary'''
+'''added static n media dirs - by mary'''
 
 
 import os
@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 STATIC_DIR = os.path.join(BASE_DIR,'static')
+MEDIA_DIR = os.path.join(BASE_DIR,'media')
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -125,6 +127,9 @@ USE_TZ = True
 
 STATICFILES_DIRS = [STATIC_DIR,]
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = MEDIA_DIR
+MEDIA_URL = '/media/'
 
 # If True, users can register
 REGISTRATION_OPEN = True
