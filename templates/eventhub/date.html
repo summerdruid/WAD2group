@@ -1,28 +1,26 @@
 {% extends 'eventhub/base.html' %}
 {% load staticfiles %}
 
-{% block title_block %}
-	{{ date.name }}
-{% endblock %}
+
 
 {% block body_block %}
 
-		{% if date %}
-			<h1>{{ date.name}}</h1>
+<div> {% if date %}
+	{% block title_block %}
+		{{ date.name }}
+	{% endblock %}
 			{% if events %}
-				<ul>
-				{% for event in events %}
-					<li><a href="/eventhub/event_page">{{ event.picture }}</a></li>
-          <li><a href="/eventhub/event_page">{{ event.title }}</a></li>
-          <li><a href="/eventhub/event_page">{{ event.description }}</a></li>
-				{% endfor %}
-				</ul>
 
-			{% else %}
-				<strong>No event currently in this search.</strong>
-			{% endif %}
+		<ul> {%for event in events %}
+			<li><a href="/eventhub/event/{{ event.slug }}">{{ event.picture }}</a> </li>
+			<li><a href="/eventhub/event/{{ event.slug }}">{{ event.title }}</a></li>
+			<li><a href="/eventhub/event/{{ event.slug }}">{{ event.description }}</a></li>
+			 {% endfor %}
+		</ul>
+		 {% else %} <strong>There are no events present.</strong>
+		 {% endif %}
+</div>
 
-		{% endif %}
 
 
 {% endblock %}

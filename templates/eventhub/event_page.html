@@ -1,16 +1,28 @@
 {% extends 'eventhub/base.html' %}
-{% block title_block %}
-  create event
-{% endblock %}
-{% block body_block  %}
+{% load staticfiles %}
 
 
 
-<ul class="pagination">
-      <li><a href="#">1</a></li>
-      <li><a href="#">2</a></li>
-      <li><a href="#">3</a></li>
-      <li><a href="#">4</a></li>
-      <li><a href="#">5</a></li>
-</ul>
+{% block body_block %}
+
+<div> {% if event %}
+	{% block title_block %}
+		{{ event.name }}
+	{% endblock %}
+
+
+		<ul>
+			<li>{{ event.picture }}</a> </li>
+			<li>{{ event.title }}</a></li>
+      <li>{{ event.date }}</a></li>
+      <li>{{ event.privacy }}</a></li>
+			<li>{{ event.description }}</a></li>
+
+		</ul>
+		 {% else %} <strong>There is  no such event.</strong>
+		 {% endif %}
+</div>
+
+
+
 {% endblock %}

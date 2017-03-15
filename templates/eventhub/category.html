@@ -1,30 +1,26 @@
 {% extends 'eventhub/base.html' %}
 {% load staticfiles %}
 
-{% block title_block %}
-	{{ category.name }}
-{% endblock %}
+
 
 {% block body_block %}
 
-		{% if category %}
-			<h1>{{ category.name}}</h1>
+<div> {% if category %}
+	{% block title_block %}
+		{{ category.name }}
+	{% endblock %}
 			{% if events %}
-				<ul>
-				{% for event in events %}
-					<li><a href="{{ event.url }}">{{ event.title }}</a></li>
-				{% endfor %}
-				</ul>
 
-			{% else %}
-				<strong>No event currently in category.</strong>
-			{% endif %}
+		<ul> {%for event in events %}
+			<li><a href="/eventhub/event/{{ event.slug }}">{{ event.picture }}</a> </li>
+			<li><a href="/eventhub/event/{{ event.slug }}">{{ event.title }}</a></li>
+			<li><a href="/eventhub/event/{{ event.slug }}">{{ event.description }}</a></li>
+			 {% endfor %}
+		</ul>
+		 {% else %} <strong>There are no events present.</strong>
+		 {% endif %}
+</div>
 
-
-
-		{% else %}
-			The specified category does not exist!
-		{% endif %}
 
 
 {% endblock %}
