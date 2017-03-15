@@ -4,7 +4,7 @@ from registration.backends.simple.views import RegistrationView
 
 
 def index(request):
-    return render(request,'eventhub/base.html')
+    return render(request,'eventhub/index.html')
 
 def about(request):
     return render(request,'eventhub/about.html')
