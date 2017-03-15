@@ -6,9 +6,11 @@
 {% block body_block %}
 
 <div> {% if location %}
-	{% block title_block %}
-		{{ location.name }}
-	{% endblock %}
+
+    	{% block title_block %}
+    		  {{ location.name }}
+    	{% endblock %}
+
 			{% if events %}
 
 		<ul> {%for event in events %}
@@ -17,8 +19,9 @@
 			<li><a href="/eventhub/event/{{ event.slug }}">{{ event.description }}</a></li>
 			 {% endfor %}
 		</ul>
-		 {% else %} <strong>There are no events present.</strong>
+
 		 {% endif %}
+      {% else %} <strong>There are no events present.</strong>
     {% endif %}
 </div>
 
