@@ -1,0 +1,28 @@
+{% extends 'eventhub/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+	{{ location.name }}
+{% endblock %}
+
+{% block body_block %}
+
+		{% if location %}
+			<h1>{{ location.name}}</h1>
+			{% if events %}
+				<ul>
+				{% for event in events %}
+					<li><a href="/eventhub/event_page">{{ event.picture }}</a></li>
+          <li><a href="/eventhub/event_page">{{ event.title }}</a></li>
+          <li><a href="/eventhub/event_page">{{ event.description }}</a></li>
+				{% endfor %}
+				</ul>
+
+			{% else %}
+				<strong>No event currently in this search.</strong>
+			{% endif %}
+
+		{% endif %}
+
+
+{% endblock %}

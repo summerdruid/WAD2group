@@ -6,11 +6,7 @@
 
 
 <head>
-		<title>
-				{% block title_block %}
-					EventHub!
-				{% endblock %}
-		</title>
+
 		<meta charset="utf-8">
 		<meta name="viewport" content="width-device-width, initial-scale=1">
 		<!-- Latest compiled and minified CSS -->
@@ -20,6 +16,15 @@
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+
+		<!-- Include Required Prerequisites -->
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
+<!-- Include Date Range Picker -->
+<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+
 </head>
 
 
@@ -85,9 +90,10 @@
 								<div>
 										<h4>Search By</h4>
 										<ul>
-												  <li><a href="#">Date</a></li>
-												  <li><a href="#">Location</a></li>
-												  <li><a href="#">Category</a></li>
+												  <li><a href="/eventhub/date">Date</a></li>
+												  <li><a href="/eventhub/location">Location</a></li>
+												  <li><a href="/eventhub/category">Category</a></li>
+
 										</ul>
 
 
@@ -99,17 +105,13 @@
 						<!-- main div-->
 						<div id="main">
 
+
+
 								{% block body_block %}
 										this is the main div
 
 								{% endblock %}
-								<ul class="pagination">
-										  <li><a href="#">1</a></li>
-										  <li><a href="#">2</a></li>
-										  <li><a href="#">3</a></li>
-										  <li><a href="#">4</a></li>
-										  <li><a href="#">5</a></li>
-								</ul>
+
 
 						</div><!-- main div end-->
 
