@@ -15,7 +15,7 @@ class Category(models.Model):
 class Event(models.Model):
     category = models.ForeignKey(Category)
     name = models.CharField(max_length = 128, unique = True)
-    creator = models.ForeignKey(User)
+    creator = models.ForeignKey(UserProfile)
 
     def __str__(self):
         return self.name
