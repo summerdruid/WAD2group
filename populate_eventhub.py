@@ -29,7 +29,6 @@ def populate():
         for e in cat_data["events"]:
             add_event(c, e["name"])
 
-
 def add_event(cat, name):
     e = Event.objects.get_or_create(category = cat, name = name)[0]
     e.save()
