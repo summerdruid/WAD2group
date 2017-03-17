@@ -1,36 +1,47 @@
 import os
-os.environ.setdefault('DJANGO_SETINGS_MODULE','WAD2group.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE','WAD2group.settings')
 
 import django
 django.setup()
-from eventhub.models import Category, eventhub
+from eventhub.models import Category, Event
+
+from lxml import html
+import requests
 
 def populate():
-    #simple events and categories until scraper gets made
-    buisness_events = [{'name': 'Meeting'},
-                       {'name': 'Brainstorm'}]
+    categories = ["business", "educational", "music", "social"]
+    results = {'business': {}, 'educational': {}, 'music': {}, 'social': {}}
 
-    educational_events = [{'name': 'Museum Trip'},
-                          {'name': 'Lecture'},
-                          {'name': 'Talk'}]
+    for cat in categories:
+        p = 0
+        while True:
+            p += 1
+            site = 'http://glasgow.eventful.com/atom/events?q=' + cat + '&ga_search=music&ga_type=events&sort_order=Date&page_number=' + str(
+                p)
+            page = requests.get(site).content
+            tree = html.fromstring(page)
+            if int(tree.xpath('//totalresults')[0].text) == 0:
+                break
+            titles = [e.text.encode('utf-8') for e in tree.xpath('//feed/entry/title')]
+            loc = [e.text.encode('utf-8') for e in tree.xpath('//feed/entry/where/entrylink/entry/title')]
+            pos = [e.text.encode('utf-8') for e in tree.xpath('//feed/entry/where/point/pos')]
 
-    music_events = [{'name': 'Concert'}]
+            for i in range(len(titles)):
+                results[cat][titles[i]] = {'loc': loc[i], 'pos': pos[i]}
 
-    social_events = [{'name': 'Party'},
-                     {'name': 'DnD Game'}]
+            print(p)
 
-    cats = {'Business': {'events': business_events},
-            'Educational': {'events': educational_events},
-            'Music': {'events': music_events},
-            'Social': {'events': social_events}}
-
-    for cat, cat_data in cats.items():
+    for cat in categories:
         c = add_cat(cat)
-        for e in cat_data["events"]:
-            add_event(c, e["name"])
+        for title in results[cat]:
+            e = add_event(c, title, results[cat][title][loc], results[cat][title][pos])
 
-def add_event(cat, name):
-    e = Event.objects.get_or_create(category = cat, name = name)[0]
+    for c in Category.objects.all():
+        for e in Events.objects.filter(category = c):
+            print("- {0} - {1}".format(str(c), str(e)))
+
+def add_event(cat, title, loc, pos):
+    e = Event.objects.get_or_create(category = cat, title = title, loc = loc, pos = pos)[0]
     e.save()
     return e
 

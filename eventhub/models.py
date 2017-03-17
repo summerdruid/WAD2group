@@ -1,10 +1,14 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length = 128, unique = True)
+
+    class Meta:
+        verbose_name_plural = "Categories"
 
     def __str__(self):
         return self.name
@@ -14,8 +18,11 @@ class Category(models.Model):
 
 class Event(models.Model):
     category = models.ForeignKey(Category)
-    name = models.CharField(max_length = 128, unique = True)
-    creator = models.ForeignKey(UserProfile)
+    title = models.CharField(max_length = 128, unique = True)
+    loc = models.CharField(max_length = 128)
+    pos = models.CharField(max_length = 128)
+    #creator = models.ForeignKey(UserProfile)
+
 
     def __str__(self):
         return self.name
