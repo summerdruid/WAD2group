@@ -13,16 +13,22 @@
 
 			{% if events %}
 
-		<ul> {%for event in events %}
-			<li><a href="/eventhub/event/{{ event.slug }}">{{ event.picture }}</a> </li>
-			<li><a href="/eventhub/event/{{ event.slug }}">{{ event.title }}</a></li>
-			<li><a href="/eventhub/event/{{ event.slug }}">{{ event.description }}</a></li>
-			 {% endfor %}
-		</ul>
+
+
+
+    <div class="card" style="width: 20rem;">{%for event in content[events] %}
+    <img class="card-img-top" src="/static/{{event.picture}}" alt="Card image cap">
+        <div class="card-block">
+            <h4 class="card-title"><a href="/eventhub/event/{{ event.slug }}">{{ event.title }}</a></h4>
+            <a href="/eventhub/event/{{ event.slug }}" class="btn btn-primary">Go to event page</a>
+        </div>
+    </div>{% end for %}
+      <!-->event with picture and title<-->
 
 		 {% endif %}
       {% else %} <strong>There are no events present.</strong>
     {% endif %}
+
 </div>
 
 

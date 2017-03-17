@@ -32,16 +32,24 @@ $(function() {
 </script>
 </div>
 
-<div>
-<label for="event_title">Privacy:</label>
-<label class="radio-inline"><input type="radio" name="optradio">Public</label>
-<label class="radio-inline"><input type="radio" name="optradio">Private</label>
+<div class="form-group">
+  <label for="location">Location:</label>
+  <input type="text" class="form-control" id="location">
 </div>
+
+
 
 <div class="form-group">
   <label for="description">Description:</label>
   <textarea class="form-control" rows="10" id="description"></textarea>
 </div>
+
+<form action="/action_page.php">
+  <label for="description">image:</label>
+  <input type="file" name="pic" accept="image/*">
+  <input type="submit">
+</form>
+
 
 <button type="button" class="btn btn-primary btn-lg">Create!</button>
 
