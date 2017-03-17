@@ -47,11 +47,14 @@
 									<li><a href="/eventhub/about">About</a></li>
 									<li><a href="/eventhub/recommended">Recommended</a></li>
 									<li><a href="/eventhub/create_event">Create Event</a></li>
+
 								</ul>
 
 										<ul class="nav navbar-nav navbar-right">
 
 										{% if user.is_authenticated %}
+
+											<li><a href="/eventhub/profile">Profile</a></li>
 											<li><a href="{% url 'auth_logout' %}?next=/eventhub/">Logout</a></li>
 										{% else %}
 											<li><a href="{% url 'auth_login' %}">Sign In</a></li>
@@ -99,6 +102,7 @@
 																		<li> <a href="/eventhub/category/{{ category.slug }}">{{ category.name }}</a> </li>
 																		 	{% endfor %}
 																	</ul>
+																			<!-->all categories<-->
 																				{% else %}
 																				<strong>There are no categories present.</strong>
 																 {% endif %}
@@ -144,6 +148,20 @@
 								<div class="clear">
 										<hr>
 										<h4>Recently Visited</h4>
+										<div> {% if recent %}
+															{% if events %}
+
+																	<div class="card" style="width: 20rem;">{% for event in content[events] %}
+															    <img class="card-img-top" src="/static/{{event.picture}}" alt="Card image cap">
+															        <div class="card-block">
+															            <h4 class="card-title"><a href="/eventhub/event/{{ event.slug }}">{{ event.title }}</a></h4>
+															            <a href="/eventhub/event/{{ event.slug }}" class="btn btn-primary">Go to event page</a>
+															        </div>
+															    </div>{% end for%}
+														{% endif %}<!-->search by date, all events, each event needs a picture and title<-->
+												 {% else %} <strong>There are no events present.</strong>
+											 {% endif %}
+										</div>
 
 								</div><!-- recent div end-->
 						</div><!--right-side-bar div end-->

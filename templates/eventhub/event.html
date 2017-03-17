@@ -10,6 +10,7 @@
 		{{ event.name }}
 	{% endblock %}
 
+		<div id="map" style="width:400px;height:400px;">Map</div>
 
 		<ul>
 			<li>{{ event.picture }}</a> </li>
@@ -17,8 +18,11 @@
       <li>{{ event.date }}</a></li>
       <li>{{ event.privacy }}</a></li>
 			<li>{{ event.description }}</a></li>
-
+			{% if user.is_authenticated %}
+				<button type="button" class="btn btn-primary btn-lg">Delete</button>
+			{% endif %}
 		</ul>
+		<!-->event page, show event picture, title, date, privacy and description<-->
 		 {% else %} <strong>There is  no such event.</strong>
 		 {% endif %}
 </div>
