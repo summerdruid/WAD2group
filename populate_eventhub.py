@@ -29,22 +29,23 @@ def populate():
             for i in range(len(titles)):
                 results[cat][titles[i]] = {'loc': loc[i], 'pos': pos[i]}
 
-            print("...")
-
-        print("...finished category...")
+        print("loading...")
 
     for cat in categories:
         c = add_cat(cat)
+        print("loading...")
         for title in results[cat]:
             e = add_event(c, title, results[cat][title]['loc'], results[cat][title]['pos'])
 
     for c in Category.objects.all():
-        for e in Events.objects.filter(category = c):
-            print("- {0} - {1}".format(str(c), str(e)))
+        print("- "+ c.name)
+        for e in Event.objects.filter(category = c):
+            print("- " + e.title)
 
 def add_event(cat, title, loc, pos):
     e = Event.objects.get_or_create(title = title, loc = loc, pos = pos)[0]
-    e.category = cat
+    if e.category == None:
+        e.category = cat
     e.save()
     return e
 

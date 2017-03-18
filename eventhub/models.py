@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Category(models.Model):
-    name = models.CharField(max_length = 128, unique = True)
+    name = models.CharField(max_length = 32, unique = True)
 
     class Meta:
         verbose_name_plural = "Categories"
@@ -17,19 +17,18 @@ class Category(models.Model):
         return self.name
 
 class Event(models.Model):
-    category = models.ForeignKey(Category)
-    title = models.CharField(max_length = 128)
+    category = models.ForeignKey(Category, null = True)
+    title = models.CharField(max_length = 256)
     loc = models.CharField(max_length = 128)
     pos = models.CharField(max_length = 128)
     #creator = models.ForeignKey(UserProfile)
     #date=...
 
-
     def __str__(self):
-        return self.name
+        return self.title
 
     def __unicode__(self):
-        return self.name
+        return self.title
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
