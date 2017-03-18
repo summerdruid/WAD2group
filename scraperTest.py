@@ -22,7 +22,7 @@ for cat in categories:
 
         print(p)
 
-#print (results)
+print (results)
 for cat in categories:
     print (cat + ":")
     for title in results[cat]:

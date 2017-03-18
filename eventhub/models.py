@@ -18,10 +18,11 @@ class Category(models.Model):
 
 class Event(models.Model):
     category = models.ForeignKey(Category)
-    title = models.CharField(max_length = 128, unique = True)
+    title = models.CharField(max_length = 128)
     loc = models.CharField(max_length = 128)
     pos = models.CharField(max_length = 128)
     #creator = models.ForeignKey(UserProfile)
+    #date=...
 
 
     def __str__(self):
