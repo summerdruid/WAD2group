@@ -35,11 +35,7 @@ def populate():
 
     for cat in categories:
         c = add_cat(cat)
-        print(c)
-        n = 1
         for title in results[cat]:
-            print(n)
-            n += 1
             e = add_event(c, title, results[cat][title]['loc'], results[cat][title]['pos'])
 
     for c in Category.objects.all():

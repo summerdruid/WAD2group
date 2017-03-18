@@ -8,7 +8,7 @@ for cat in categories:
     p = 0
     while True:
         p += 1
-        site = 'http://glasgow.eventful.com/atom/events?q='+cat+'&ga_search=music&ga_type=events&sort_order=Date&page_number=' + str(p)
+        site = 'http://glasgow.eventful.com/atom/events?q='+cat+'&ga_search='+cat+'&ga_type=events&sort_order=Date&page_number=' + str(p)
         page = requests.get(site).content
         tree = html.fromstring(page)
         if int(tree.xpath('//totalresults')[0].text) == 0:
@@ -22,7 +22,6 @@ for cat in categories:
 
         print(p)
 
-print (results)
 for cat in categories:
     print (cat + ":")
     for title in results[cat]:
