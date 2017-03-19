@@ -38,9 +38,9 @@ def populate():
             e = add_event(c, title, results[cat][title]['loc'], results[cat][title]['pos'])
 
     for c in Category.objects.all():
-        print("- "+ c.name)
+        print(str(c) + ":")
         for e in Event.objects.filter(category = c):
-            print("- " + e.title)
+            print("- " + str(e))
 
 def add_event(cat, title, loc, pos):
     e = Event.objects.get_or_create(title = title, loc = loc, pos = pos)[0]

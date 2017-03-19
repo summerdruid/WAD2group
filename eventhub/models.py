@@ -25,7 +25,8 @@ class Event(models.Model):
     #date=...
 
     def __str__(self):
-        return self.title
+        s = self.title
+        return s.encode('utf-8')
 
     def __unicode__(self):
         return self.title
@@ -35,7 +36,8 @@ class UserProfile(models.Model):
     picture = models.ImageField(upload_to='profile_images', blank=True)
 
     def __str__(self):
-        return self.user.username
+        s = self.user.username
+        return s.encode('utf-8')
 
     def __unicode__(self):
         return  self.user.username
