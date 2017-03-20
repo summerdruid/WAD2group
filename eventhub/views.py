@@ -11,3 +11,5 @@ def index(request):
 class MyRegistrationView(RegistrationView):
     def get_success_url(self, user):
         return '/eventhub/'
+def change_password(request):
+    return render(request, 'eventhub/password_change_form.html')

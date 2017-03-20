@@ -26,3 +26,6 @@ urlpatterns = [
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^accounts/register/$', views.MyRegistrationView.as_view(), name='registration_register'),
 ]
+class MyRegistrationView(RegistrationView):
+    def get_success_url(self, user):
+        return '/eventhub/'
