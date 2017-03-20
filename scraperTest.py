@@ -1,8 +1,8 @@
 from lxml import html
 import requests
 
-categories = ["business", "educational", "music", "social"]
-results = {'business': {}, 'educational': {}, 'music': {}, 'social': {}}
+categories = ["business", "music", "social"]
+results = {'business': {}, 'music': {}, 'social': {}}
 
 for cat in categories:
     p = 0

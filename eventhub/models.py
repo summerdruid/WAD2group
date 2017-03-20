@@ -4,40 +4,26 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
-class Category(models.Model):
-    name = models.CharField(max_length = 32, unique = True)
-
-    class Meta:
-        verbose_name_plural = "Categories"
-
-    def __str__(self):
-        return self.name
-
-    def __unicode__(self):
-        return self.name
-
-class Event(models.Model):
-    category = models.ForeignKey(Category, null = True)
-    title = models.CharField(max_length = 256)
-    loc = models.CharField(max_length = 128)
-    pos = models.CharField(max_length = 128)
-    #creator = models.ForeignKey(UserProfile)
-    #date=...
-
-    def __str__(self):
-        s = self.title
-        return s.encode('utf-8')
-
-    def __unicode__(self):
-        return self.title
-
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     picture = models.ImageField(upload_to='profile_images', blank=True)
 
     def __str__(self):
-        s = self.user.username
-        return s.encode('utf-8')
+        return self.user.username
 
     def __unicode__(self):
         return  self.user.username
+
+class Event(models.Model):
+    category = models.CharField(max_length = 32)
+    title = models.CharField(max_length = 256)
+    loc = models.CharField(max_length = 128)
+    creator = models.ForeignKey(UserProfile)
+    date = models.CharField(max_length = 32)
+    time = models.CharField(max_length = 32)
+
+    def __str__(self):
+        return self.title
+
+    def __unicode__(self):
+        return self.title
