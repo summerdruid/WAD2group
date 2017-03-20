@@ -3,189 +3,161 @@
 {% load staticfiles %}
 
 <html lang="en">
-
-
 <head>
-
-		<meta charset="utf-8">
-		<meta name="viewport" content="width-device-width, initial-scale=1">
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-		<!-- Optional theme -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-		<!-- Latest compiled and minified JavaScript -->
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-		<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-
-
-		<!-- Include Required Prerequisites -->
-<script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
-<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-
-<!-- Include Date Range Picker -->
-<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
-
+	<meta charset="utf-8">
+	<meta name="viewport" content="width-device-width, initial-scale=1">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	<!-- Include Required Prerequisites -->
+	<script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+	<script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	<!-- Include Date Range Picker -->
+	<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
 </head>
+<body>
 
+	<!-- container div -->
+	<div id="container">
+		<!--- header div-->
+		<div id="header">
+			<nav class="navbar navbar-inverse" >
+				<div class="container">
 
-		<!-- container div -->
-		<div id="container">
-				<!--- header div-->
-				<div id="header">
-					<nav class="navbar navbar-inverse" >
-						<div class="container">
+				<!-- logo -->
+				<div class="navbar-header">
+					<a href="/eventhub" class="navbar-brand">EventHub</a>
+				</div>
 
-							<!-- logo -->
-							<div class="navbar-header">
-								<a href="/eventhub" class="navbar-brand">EventHub</a>
+				<!-- menu items-->
+				<div>
+					<ul class="nav navbar-nav navbar-top">
+						<li class="active"><a href="{% url 'index' %}">Home</a></li>
+						<li><a href="/eventhub/about">About</a></li>
+						<li><a href="/eventhub/recommended">Recommended</a></li>
+						<li><a href="/eventhub/create_event">Create Event</a></li>
+					</ul>
+
+					<ul class="nav navbar-nav navbar-right">
+						{% if user.is_authenticated %}
+						<li><a href="/eventhub/profile">Profile</a></li>
+						<li><a href="{% url 'auth_logout' %}?next=/eventhub/">Logout</a></li>
+						{% else %}
+						<li><a href="{% url 'auth_login' %}">Sign In</a></li>
+						<li><a href="{% url 'registration_register' %}">Sign Up</a></li>
+						{% endif %}
+					</ul>
+				</div>
+
+				</div>
+			</nav>
+
+		</div><!--- header div end-->
+
+		<!--content div-->
+		<div id="content">
+			<!--left-side-bar div-->
+			<div id="leftsidebar">
+
+				<!-- searchbar div-->
+				<div>
+					<h4>Serach bar</h4>
+					<form>
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search">
+							<div class="input-group-btn">
+								<button class="btn btn-default" type="submit">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
 							</div>
-
-							<!-- menu items-->
-							<div>
-								<ul class="nav navbar-nav navbar-top">
-									<li class="active"><a href="{% url 'index' %}">Home</a></li>
-									<li><a href="/eventhub/about">About</a></li>
-									<li><a href="/eventhub/recommended">Recommended</a></li>
-									<li><a href="/eventhub/create_event">Create Event</a></li>
-
-								</ul>
-
-										<ul class="nav navbar-nav navbar-right">
-
-										{% if user.is_authenticated %}
-
-											<li><a href="/eventhub/profile">Profile</a></li>
-											<li><a href="{% url 'auth_logout' %}?next=/eventhub/">Logout</a></li>
-										{% else %}
-											<li><a href="{% url 'auth_login' %}">Sign In</a></li>
-											<li><a href="{% url 'registration_register' %}">Sign Up</a></li>
-										{% endif %}
-										</ul>
-							</div>
-
 						</div>
-					</nav>
+					</form>
+					<hr>
+					</div><!-- searchbar div end-->
 
-				</div><!--- header div end-->
+					<!-- searchby div-->
+					<div>
+						<h4>Search By</h4>
+						<ul>
+							<li><a href="/eventhub/date">Date</a></li>
+							<li><a href="/eventhub/location">Location</a></li>
+							<li>Category</a></li>
+							<div>
+								<ul>
+									<li> <a href="/eventhub/category/music">Music</a> </li>
+									<li> <a href="/eventhub/category/education">Education</a> </li>
+									<li> <a href="/eventhub/category/buisness">Buisness</a> </li>
+									<li> <a href="/eventhub/category/social">Social</a> </li>
+								</ul>
+							</div>
+						</ul>
+				</div><!-- searchbar div end-->
+			</div><!--left-side-bar div end-->
+			<!-- main div-->
+			<div id="main">
 
-				<!--content div-->
-				<div id="content">
-						<!--left-side-bar div-->
-						<div id="leftsidebar">
+				{% block body_block %}
+					this is the main div
+				{% endblock %}
 
-								<!-- searchbar div-->
-								<div>
-										<h4>Serach bar</h4>
-										<form>
-											  <div class="input-group">
-												    <input type="text" class="form-control" placeholder="Search">
-												    <div class="input-group-btn">
-													      <button class="btn btn-default" type="submit">
-													        	<i class="glyphicon glyphicon-search"></i>
-													      </button>
-												    </div>
-											  </div>
-										</form>
-								<hr>
-								</div><!-- searchbar div end-->
+			</div><!-- main div end-->
 
-								<!-- searchby div-->
-								<div>
-										<h4>Search By</h4>
-										<ul>
-												  <li><a href="/eventhub/date">Date</a></li>
-												  <li><a href="/eventhub/location">Location</a></li>
-												  <li>Category</a></li>
-																<div> {% if categories %}
-																	<ul> {% for category in categories %}
-																		<!-- Following line changed to add an HTML hyperlink -->
-																		<li> <a href="/eventhub/category/{{ category.slug }}">{{ category.name }}</a> </li>
-																		 	{% endfor %}
-																	</ul>
-																			<!-->all categories<-->
-																				{% else %}
-																				<strong>There are no categories present.</strong>
-																 {% endif %}
-															  </div>
+			<!--right-side-bar div-->
+			<div id="rightsidebar">
+				<!-- media div-->
+				<h4>Social Media</h4>
+				<div id="icon">
 
-										</ul>
+					<!-- icon-->
+					<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+					<!--icons -->
+					<a href="#" class="fa fa-facebook"></a>
+					<a href="#" class="fa fa-google"></a>
 
+				</div><!-- media div end-->
 
-								</div><!-- searchbar div end-->
-
-						</div><!--left-side-bar div end-->
-
-						<!-- main div-->
-						<div id="main">
-
-
-
-								{% block body_block %}
-										this is the main div
-
-								{% endblock %}
-
-
-						</div><!-- main div end-->
-
-						<!--right-side-bar div-->
-						<div id="rightsidebar">
-								<!-- media div-->
-								<h4>Social Media</h4>
-								<div id="icon">
-
-										<!-- icon-->
-										<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-										<!--icons -->
-										<a href="#" class="fa fa-facebook"></a>
-										<a href="#" class="fa fa-google"></a>
-
-							</div><!-- media div end-->
-
-								<!-- recently visited div-->
-								<div class="clear">
-										<hr>
-										<h4>Recently Visited</h4>
-										<div> {% if recent %}
-															{% if events %}
-
-																	<div class="card" style="width: 20rem;">{% for event in content[events] %}
-															    <img class="card-img-top" src="/static/{{event.picture}}" alt="Card image cap">
-															        <div class="card-block">
-															            <h4 class="card-title"><a href="/eventhub/event/{{ event.slug }}">{{ event.title }}</a></h4>
-															            <a href="/eventhub/event/{{ event.slug }}" class="btn btn-primary">Go to event page</a>
-															        </div>
-															    </div>{% end for%}
-														{% endif %}<!-->search by date, all events, each event needs a picture and title<-->
-												 {% else %} <strong>There are no events present.</strong>
-											 {% endif %}
-										</div>
-
-								</div><!-- recent div end-->
-						</div><!--right-side-bar div end-->
+				<!-- recently visited div-->
+				<div class="clear">
+					<hr>
+					<h4>Recently Visited</h4>
+					{% if recent %}
+						<div>
+							{% if events %}
+								{% for event in events %}
+									<h5><a href="/eventhub/event/{{ event.slug }}">{{ event.title }}</a></h5>
+								{% endfor%}
+							{% else %} <strong>There are no events present.</strong>
+							{% endif %}<!-->search by date, all events, each event needs a picture and title<-->
+						</div>
+					{% endif %}
+				</div><!-- recent div end-->
+			</div><!--right-side-bar div end-->
 
 
-				</div><!--content div end-->
+		</div><!--content div end-->
 
-				<!-- footer div -->
-				<div class="clear" id="footer" >
-						<nav class="navbar navbar-inverse" >
-								<div class="container">
-									<!-- menu items-->
-										<div>
-												<ul class="nav navbar-nav navbar-top">
-														<li><a href="/eventhub/create_event">contact us</a></li>
-												</ul>
-										</div>
-								</div>
-						</nav>
-				</div><!-- footer div end -->
+		<!-- footer div -->
+		<div class="clear" id="footer" >
+			<nav class="navbar navbar-inverse" >
+				<div class="container">
+				<!-- menu items-->
+				<div>
+					<ul class="nav navbar-nav navbar-top">
+						<li><a href="/eventhub/create_event">contact us</a></li>
+					</ul>
+				</div>
+				</div>
+			</nav>
+		</div><!-- footer div end -->
 
 
 
-		</div> <!--container div end-->
+	</div> <!--container div end-->
 
 
 </body>

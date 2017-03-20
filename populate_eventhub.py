@@ -1,6 +1,6 @@
 import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE','WAD2group.settings')
-
+import sys
 import django
 django.setup()
 from eventhub.models import Category, Event
@@ -10,26 +10,9 @@ import requests
 
 def populate():
     categories = ["business", "educational", "music", "social"]
-    results = {'business': {}, 'educational': {}, 'music': {}, 'social': {}}
-
-    for cat in categories:
-        p = 0
-        while True:
-            p += 1
-            site = 'http://glasgow.eventful.com/atom/events?q=' + cat + '&ga_search=music&ga_type=events&sort_order=Date&page_number=' + str(
-                p)
-            page = requests.get(site).content
-            tree = html.fromstring(page)
-            if int(tree.xpath('//totalresults')[0].text) == 0:
-                break
-            titles = [e.text.encode('utf-8') for e in tree.xpath('//feed/entry/title')]
-            loc = [e.text.encode('utf-8') for e in tree.xpath('//feed/entry/where/entrylink/entry/title')]
-            pos = [e.text.encode('utf-8') for e in tree.xpath('//feed/entry/where/point/pos')]
-
-            for i in range(len(titles)):
-                results[cat][titles[i]] = {'loc': loc[i], 'pos': pos[i]}
-
-        print("loading...")
+    f = open('testData.txt', 'r')
+    results = eval(f.readline())
+    f.close()
 
     for cat in categories:
         c = add_cat(cat)
@@ -40,7 +23,7 @@ def populate():
     for c in Category.objects.all():
         print(str(c) + ":")
         for e in Event.objects.filter(category = c):
-            print("- " + str(e))
+            print("- ",e)
 
 def add_event(cat, title, loc, pos):
     e = Event.objects.get_or_create(title = title, loc = loc, pos = pos)[0]
