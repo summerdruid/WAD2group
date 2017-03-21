@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
-    picture = models.ImageField(upload_to='profile_images', blank=True)
+    preferences = models.CharField(max_length = 256, null = True, blank = True)
 
     def __str__(self):
         return self.user.username
@@ -18,9 +18,10 @@ class Event(models.Model):
     category = models.CharField(max_length = 32)
     title = models.CharField(max_length = 256)
     loc = models.CharField(max_length = 128)
+    pos = models.Charfield(max_length = 528)
     creator = models.ForeignKey(UserProfile)
-    date = models.CharField(max_length = 32)
-    time = models.CharField(max_length = 32)
+    datetime = models.DateTimeField()
+    desc = models.CharField(max_length = 1024, null = True)
 
     def __str__(self):
         return self.title
