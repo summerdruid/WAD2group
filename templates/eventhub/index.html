@@ -5,42 +5,58 @@
 
 {% block body_block %}
 
-<div>
-{% if main_page_event %}
-
-  {% block title_block %}
-  {{ main_page_event.name }}
-  {% endblock %}
-
-  {% if events %}
-
-    {%for event in events %}
-      <div class="card" style="width: 20rem;">
-        <img class="card-img-top" src="/static/img/{{event.picture}}" alt="Card image cap">
-        <div class="card-block">
-          <h4 class="card-title"><a href="/eventhub/event/{{ event.slug }}">{{ event.title }}</a></h4>
-          <a href="/eventhub/event/{{ event.slug }}" class="btn btn-primary">Go to event page</a>
+<div class="panel panel default">
+  <div class="panel-heading"><h4>Music</h4></div>
+  <div class="panel-body">
+    <div class="row">
+      {% for e in events.music %}
+        <div class="col-sm-6 col-md-4">
+          <div class="thumbnail">
+            <div class="caption">
+              <h4>{{e.title}}</h4>
+              <a href="eventhub/event/{{e.id}}" class="btn btn-primary">Go</a>
+            </div>
+          </div>
         </div>
-      </div>
-    {% endfor %}
-    <!--event with picture and title-->
-
-  {% else %}
-    <strong>There are no events present.</strong>
-  {% endif %}
-{% endif %}
-
+      {% endfor %}
+    </div>
+  </div>
 </div>
 
+<div class="panel panel default">
+  <div class="panel-heading"><h4>Business</h4></div>
+  <div class="panel-body">
+    <div class="row">
+      {% for e in events.business %}
+        <div class="col-sm-6 col-md-4">
+          <div class="thumbnail">
+            <div class="caption">
+              <h4>{{e.title}}</h4>
+              <a href="eventhub/event/{{e.id}}" class="btn btn-primary">Go</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
 
+<div class="panel panel default">
+  <div class="panel-heading"><h4>Social</h4></div>
+  <div class="panel-body">
+    <div class="row">
+      {% for e in events.social %}
+        <div class="col-sm-6 col-md-4">
+          <div class="thumbnail">
+            <div class="caption">
+              <h4>{{e.title}}</h4>
+              <a href="eventhub/event/{{e.id}}" class="btn btn-primary">Go</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
 
-
-
-<ul class="pagination">
-  <li><a href="#">1</a></li>
-  <li><a href="#">2</a></li>
-  <li><a href="#">3</a></li>
-  <li><a href="#">4</a></li>
-  <li><a href="#">5</a></li>
-</ul>
 {% endblock %}
