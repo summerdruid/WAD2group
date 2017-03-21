@@ -18,7 +18,7 @@ class Event(models.Model):
     category = models.CharField(max_length = 32)
     title = models.CharField(max_length = 256)
     loc = models.CharField(max_length = 128)
-    pos = models.CharField(max_length = 528)
+    pos = models.CharField(max_length = 128)
     creator = models.ForeignKey(UserProfile)
     datetime = models.DateTimeField()
     desc = models.CharField(max_length = 1024, null = True)
