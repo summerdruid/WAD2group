@@ -1,0 +1,28 @@
+{% extends 'eventhub/base.html' %}
+{% load staticfiles %}
+
+
+
+{% block body_block %}
+
+<div class="panel panel default">
+  <div class="panel-heading"><h2>{{title}}</h2></div>
+  <div class="panel-body">
+    <div class="row">
+      {% for e in events %}
+        <div class="col-sm-6 col-md-4">
+          <div class="thumbnail">
+            <div class="caption">
+              <h4>{{e.title}}</h4>
+              <a href="eventhub/event/{{e.id}}" class="btn btn-primary">Go</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}
