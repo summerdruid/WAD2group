@@ -1,7 +1,7 @@
 # WAD2group
 
 ## Things that still need to be done:
-- Models:  
+- Models: Dominic
   - Event also needs a description
   - Users also need a preference (this is just a string of categories they like)
 - Population:  
