@@ -5,23 +5,25 @@
 
 {% block body_block %}
 
-<div> {% if event %}
-	{% block title_block %}
-		<h2>{{ event.title }}</h2>
-	{% endblock %}
+<div class="panel panel-default">
+	{% if event %}
+		<div class="panel-heading"><h2>{{ event.title }}</h2></div>
+		<div class="panel-body">
+		<div id="map" style="float: right;"><iframe width="300" height="250" frameborder="0" style="border:0" src="{{pos}}" allowfullscreen></iframe></div>
 
-		<div id="map" style="width:400px;height:400px;">{{event}}</div>
-
-		<ul>
-      <li>{{ event.date }}</a></li>
-      <li>{{ event.loc }}</a></li>
-			<li>{{ event.time }}</a></li>
+    {{ event.datetime }}<br/>
+  	{{ event.loc }}<br/>
+		Made by {{ event.creator }}<br/>
+		<div class="panel panel-default" style="width: 50%; height: 15em;">
+		<div class="panel-heading">Description</div>
+		{{ event.desc }}
+		</div>
 			{% if user.is_authenticated %}
 				<button type="button" class="btn btn-primary btn-lg">Delete</button>
 			{% endif %}
-		</ul>
 		 {% else %} <strong>There is  no such event.</strong>
 		 {% endif %}
+	 </div>
 </div>
 
 

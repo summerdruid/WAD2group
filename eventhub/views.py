@@ -26,7 +26,9 @@ def create(request):
 def event(request, eventID):
     active = ["","","","","","",""]
     e = Event.objects.get(id=eventID)
-    return render(request, 'eventhub/event.html', context={'event': e, 'active':active})
+    p = e.pos.split(',')
+    pos = 'https://www.google.com/maps/embed/v1/place?q='+p[0]+'%2C'+p[1]+'&key=AIzaSyAk67VAOhMC_8HSXADhnLSoFN1Al8b_tGU'
+    return render(request, 'eventhub/event.html', context={'event': e, 'active':active, 'pos':pos})
 
 def category(request, cat):
     active = ["","","","","","",""]
@@ -42,7 +44,7 @@ def profile(request):
     active = ["","","","","active","",""]
     currentUser = request.user
     events = Event.objects.filter(creator=currentUser)[:3]
-    return render(request, 'eventhub/profile.html', context={'active': active, 'name':currentUser, 'email':currentUser.email, 'events':events})
+    return render(request, 'eventhub/profile.html', context={'active': active, 'user':currentUser, 'events':events})
 
 #if successful at logging
 class MyRegistrationView(RegistrationView):

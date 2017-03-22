@@ -5,8 +5,8 @@
 {% block body_block %}
 <div>
   <h1>Profile</h1>
-  <h4>{{name}}</h4>
-  <h4>{{email}}</h4>
+  <h4>{{user}}</h4>
+  <h4>{{user.email}}</h4>
 {% if events %}
   <div class="panel panel default">
     <div class="panel-heading"><h3>Your Events</h3></div>
@@ -19,7 +19,7 @@
               <h4>{{e.title}}</h4>
             </div>
             <div class="panel-body">
-              <a href="eventhub/event/{{e.id}}" class="btn btn-primary">Go</a>
+              <a href="eventhub/event/{{e.id}}" class="btn btn-primary">Info</a>
               <p style="float: right;">{{e.datetime}}</p>
             </div>
           </div>
