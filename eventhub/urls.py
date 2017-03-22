@@ -10,4 +10,7 @@ urlpatterns = [ url(r'^$', views.index, name='index'),
                 url(r'search/(?P<search>[\w\-]+)/$', views.search, name='search'),
                 url(r'category/(?P<cat>[\w\-]+)/$', views.category, name='category'),
                 url(r'profile/', views.profile, name='profile'),
+                url(r'creator/', views.get_creator, name='get_creator'),
+                url(r'post_prefs/', views.post_prefs, name='post_prefs'),
+                url(r'recommended/', views.recommended, name='recommended'),
             ]

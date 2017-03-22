@@ -3,38 +3,27 @@
 
 <button type="button" class="btn btn-primary btn-lg">Create Event</button>
 {% block body_block %}
+<script type="text/javascript" src="{% static 'js/prefUpdate.js' %}" onload="getPref()"></script>
 <div>
   <h1>Profile</h1>
   <h4>{{user}}</h4>
   <h4>{{user.email}}</h4>
+  <div class="panel panel-default">
+  <div class="panel-heading"><h4>Preferences</h4></div>
+    <div class="panel-body">
+      <a class="btn btn-primary" onclick="changePrefs()">Update</a>
+      <input id="pm" type="checkbox" name="pref" value="music">Music
+      <input id="pb" type="checkbox" name="pref" value="business">Business
+      <input id="ps" type="checkbox" name="pref" value="social">Social
+      <p id="updateResp" style="float: right;"></p>
+    </div>
+  </div>
 {% if events %}
-  <div class="panel panel default">
-    <div class="panel-heading"><h3>Your Events</h3></div>
+  <div class="panel panel-default">
+    <div class="panel-heading"><h4>Your Events</h4></div>
     <div class="panel-body">
       <div class="row">
         {% for e in events %}
-        <div class="col-sm-6 col-md-4">
-          <div class="panel panel-default">
-            <div class="panel-heading" style="min-height: 6em;">
-              <h4>{{e.title}}</h4>
-            </div>
-            <div class="panel-body">
-              <a href="eventhub/event/{{e.id}}" class="btn btn-primary">Details</a>
-              <p style="float: right; width: 50%;">{{e.datetime}}</p>
-            </div>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-{% else %}
-{% if recommended %}
-  <div class="panel panel default">
-    <div class="panel-heading"><h3>Recommended</h3></div>
-    <div class="panel-body">
-      <div class="row">
-        {% for e in recommended %}
         <div class="col-sm-6 col-md-4">
           <div class="panel panel-default">
             <div class="panel-heading" style="min-height: 6em;">

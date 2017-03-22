@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from registration.backends.simple.views import RegistrationView
 from django.contrib.auth.decorators import login_required
-from eventhub.models import Event
+from django.views.decorators.csrf import ensure_csrf_cookie
+from eventhub.models import Event, Pref
 from django.db.models import Q
 
 
@@ -49,9 +50,38 @@ def search(request, search):
 
 def profile(request):
     active = ["","","","","active","",""]
+    checked = ["checked","checked",""]
     currentUser = request.user
     events = Event.objects.filter(creator=currentUser)[:3]
-    return render(request, 'eventhub/profile.html', context={'active': active, 'user':currentUser, 'events':events})
+    return render(request, 'eventhub/profile.html', context={'checked': checked, 'active': active, 'user':currentUser, 'events':events})
+
+def post_event(request):
+    if request.method == 'POST':
+        form = NameForm(request.POST)
+        if form.is_valid():
+            return HttpResponseRedirect('/')
+        else:
+            form = EventForm()
+
+    return render(request, 'create_event.html', {'form': form})
+
+def get_creator(request):
+    currentUser = request.user
+    pref = Pref.objects.get(user=currentUser).preference
+    return HttpResponse(pref)
+
+@ensure_csrf_cookie
+def post_prefs(request):
+    p = Pref.objects.get(user=request.user)
+    p.preference = request.POST.get("prefs","")
+    p.save()
+    return HttpResponse('Updated!')
+
+def recommended(request):
+    prefs = Pref.objects.get(user=request.user).preference.split(',')
+    print(prefs)
+    events = Event.objects.filter(category__in=prefs)
+    return render(request, 'eventhub/browse.html', context={'title': 'Recommended Events:', 'events': events})
 
 #if successful at logging
 class MyRegistrationView(RegistrationView):
