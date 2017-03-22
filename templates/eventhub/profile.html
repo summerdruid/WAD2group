@@ -19,8 +19,30 @@
               <h4>{{e.title}}</h4>
             </div>
             <div class="panel-body">
-              <a href="eventhub/event/{{e.id}}" class="btn btn-primary">Info</a>
-              <p style="float: right;">{{e.datetime}}</p>
+              <a href="eventhub/event/{{e.id}}" class="btn btn-primary">Details</a>
+              <p style="float: right; width: 50%;">{{e.datetime}}</p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% else %}
+{% if recommended %}
+  <div class="panel panel default">
+    <div class="panel-heading"><h3>Recommended</h3></div>
+    <div class="panel-body">
+      <div class="row">
+        {% for e in recommended %}
+        <div class="col-sm-6 col-md-4">
+          <div class="panel panel-default">
+            <div class="panel-heading" style="min-height: 6em;">
+              <h4>{{e.title}}</h4>
+            </div>
+            <div class="panel-body">
+              <a href="eventhub/event/{{e.id}}" class="btn btn-primary">Details</a>
+              <p style="float: right; width: 50%;">{{e.datetime}}</p>
             </div>
           </div>
         </div>

@@ -18,9 +18,12 @@
 		<div class="panel-heading">Description</div>
 		{{ event.desc }}
 		</div>
-			{% if user.is_authenticated %}
-				<button type="button" class="btn btn-primary btn-lg">Delete</button>
-			{% endif %}
+		<div class='row'>
+		{% if user.is_authenticated %}
+			<button type="button" class="btn btn-primary btn-lg">Like</button>
+			<button type="button" class="btn btn-primary btn-lg">Delete</button>
+		{% endif %}
+		</div>
 		 {% else %} <strong>There is  no such event.</strong>
 		 {% endif %}
 	 </div>

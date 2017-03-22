@@ -37,8 +37,15 @@ def category(request, cat):
 
 def search(request, search):
     active = ["","","","","","",""]
-    events = Event.objects.filter(Q(title__contains=search) | Q(loc__contains=search) | Q(category__contains=search))
-    return render(request, 'eventhub/browse.html', context={'events': events, 'title': 'Looking for: '+search})
+    title = 'Order by: '+search
+    if search == 'date':
+        events = Event.objects.order_by('datetime')
+    elif search == 'location':
+        events = Event.objects.order_by('loc')
+    else:
+        title = 'Looking for: '+search
+        events = Event.objects.filter(Q(title__contains=search) | Q(loc__contains=search) | Q(category__contains=search))
+    return render(request, 'eventhub/browse.html', context={'events': events, 'title': title})
 
 def profile(request):
     active = ["","","","","active","",""]
