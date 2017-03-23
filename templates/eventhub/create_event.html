@@ -17,34 +17,35 @@
         <label class="control-label col-sm-2" for="pwd">Category:</label>
         <div class="col-sm-10">
           <select class="form-control" name="category" style="width: 215px;">
+            <option value="{{initVal.0}}">{{initVal.0}}</option>
             <option value="music">Music</option>
             <option value="business">Business</option>
-            <option value="Social">Social</option>
+            <option value="social">Social</option>
           </select>
         </div>
       </div>
       <div class="form-group">
         <label class="control-label col-sm-2" for="pwd">Date and Time:</label>
         <div class="col-sm-10">
-          <input  style="width: 215px;" type="datetime-local" class="form-control" name="datetime">
+          <input  style="width: 215px;" type="datetime-local" class="form-control" name="datetime" value="{{initVal.1}}">
         </div>
       </div>
       <div class="form-group">
         <label class="control-label col-sm-2" for="pwd">Postcode:</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" name="postcode" placeholder="Enter postcode" style="width: 215px;">
+          <input type="text" class="form-control" name="postcode" placeholder="Enter postcode" style="width: 215px;" value="{{initVal.2}}">
         </div>
       </div>
       <div class="form-group">
         <label class="control-label col-sm-2" for="pwd">Address:</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" name="loc" placeholder="Enter further address details" style="width: 100%;">
+          <input type="text" class="form-control" name="loc" placeholder="Enter further address details" style="width: 100%;" value="{{initVal.3}}">
         </div>
       </div>
       <div class="form-group">
         <label class="control-label col-sm-2" for="pwd">Description:</label>
         <div class="col-sm-10">
-          <textarea class="form-control" name="desc" placeholder="Write a description. Consider things like driving instructions and things to bring."></textarea>
+          <textarea class="form-control" name="desc" placeholder="Write a description. Consider things like driving instructions and things to bring." value="{{initVal.4}}"></textarea>
         </div>
       </div>
       <div class="form-group">

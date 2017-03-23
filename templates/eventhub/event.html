@@ -23,7 +23,8 @@
 			{% autoescape off %}{{button}}{% endautoescape %}
 		{% endif %}
 		{% if isCreator %}
-			<button type="button" class="btn btn-primary btn-lg">Delete</button>
+			<a href="/delete"><button type="button" class="btn btn-primary btn-lg">Delete</button></a>
+			<a href="/edit/"><button type="button" class="btn btn-primary btn-lg">Edit</button></a>
 		{% endif %}
 		</div>
 		 {% else %} <strong>There is  no such event.</strong>

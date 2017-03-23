@@ -36,10 +36,10 @@ def create(request):
                                 desc=p['desc'],
                                 pos=p['postcode'],
                                 )
-        return HttpResponseRedirect('/eventhub/event/'+e.id)
+        return HttpResponseRedirect('/eventhub/event/'+str(e.id))
     else:
         active = ["","","","active","","",""]
-        return render(request,'eventhub/create_event.html', context={'active':active})
+        return render(request,'eventhub/create_event.html', context={'active':active, 'initVal':["","","","",""]})
 
 def event(request, eventID):
     active = ["","","","","","",""]

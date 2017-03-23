@@ -30,7 +30,7 @@
               <h4>{{e.title}}</h4>
             </div>
             <div class="panel-body">
-              <a href="eventhub/event/{{e.id}}" class="btn btn-primary">Details</a>
+              <a href="/eventhub/event/{{e.id}}" class="btn btn-primary">Details</a>
               <p style="float: right; width: 50%;">{{e.datetime}}</p>
             </div>
           </div>
@@ -40,7 +40,7 @@
     </div>
   </div>
 {% else %}
-  <h4>You have no events to show. Click <a href="/eventhub/create_event">create event</a> to get started!</h4>
+  <h4>You have no events to show. Click <a href="/eventhub/create_event/">create event</a> to get started!</h4>
 {% endif %}
 </div>
 {% endblock %}
