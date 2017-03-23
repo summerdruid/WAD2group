@@ -22,7 +22,7 @@ def about(request):
     active = ["","active","","","","",""]
     return render(request,'eventhub/about.html', context={'active':active})
 
-def create(request):
+def create(request, eid=None):
     if request.method == "POST":
         p = request.POST
         for key, value in p.items():
@@ -44,8 +44,12 @@ def create(request):
 def event(request, eventID):
     active = ["","","","","","",""]
     try:
-        Like.objects.get(user=request.user,event=eventID)
-        button = '<button id="like" type="button" class="btn btn-primary btn-lg active" onclick="removeLike('+eventID+')">Unlike</button>'
+        currentUser=request.user
+        button = ''
+        print(currentUser.username)
+        if currentUser.username != "":
+            Like.objects.get(user=request.user,event=eventID)
+            button = '<button id="like" type="button" class="btn btn-primary btn-lg active" onclick="removeLike('+eventID+')">Unlike</button>'
     except ObjectDoesNotExist:
         button = '<button id="like" type="button" class="btn btn-primary btn-lg" onclick="addLike('+eventID+')">Like</button>'
     e = Event.objects.get(id=eventID)
