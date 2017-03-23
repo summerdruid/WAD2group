@@ -1,0 +1,53 @@
+{ 'title':
+  'Pool night',
+  'Vulfpeck concert',
+  'Tesco: management seminar',
+  ‘Chess fun with Ali Munn’,
+  'Argos: Sales meeting',
+  'Susan Boyle Live at the Hydro’,
+  }
+
+{ 'category':
+  'Social',
+  'Music',
+  'Business',
+  'Social',
+  'Business',
+  'Music'}
+
+{ 'position':
+  'G12 8LX',
+  'G12 8LX',
+  'G12 8LX',
+  'G12 8LX',
+  'G12 8LX',
+  'G12 8LX'}
+
+{ 'location':
+  ‘Glasgow University Union’,
+  ‘Flying Duck Bar’,
+  ‘Tesco Stores’,
+  ’Queen Margaret Union’,
+  ‘Argos stores’,
+  ‘The Hydro’}
+{ 'description':
+  ‘Weekly pool night-bring £2’,
+  ‘Vulfpeck finally in Scotland!’,
+  ‘Details have been emailed to your staff email’,
+  ‘Tutoring night for Chess’,
+  ‘Details have been emailed to your staff email’,
+  ‘Knock your socks off!’}
+{ 'creator':
+  ‘Michael’,
+  ‘Cameron’,
+  ‘Dominic’,
+  ‘Mary’,
+  ‘Michael’,
+  ‘Cameron’}
+{ 'yyyy-mm-dd H:m:s':
+  ’2017-04-13 18:30:00’,
+  ‘2017-05-15 19:30:00’,
+  ‘2017-04-03 14:00:00’,
+  ‘2017-04-02 18:30:00’,
+  ‘2017-04-17 10:00:00’,
+  ‘2017-06-17 19:00:00’}
