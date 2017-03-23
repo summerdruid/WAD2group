@@ -1,8 +1,3 @@
-function _(i) {
-  var e = document.getElementById(i);
-  return e
-}
-
 function getPref() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {

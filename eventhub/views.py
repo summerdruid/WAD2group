@@ -3,8 +3,10 @@ from django.http import HttpResponse
 from registration.backends.simple.views import RegistrationView
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import ensure_csrf_cookie
-from eventhub.models import Event, Pref
+from eventhub.models import Event, Pref, Like
 from django.db.models import Q
+from eventhub.forms import EventForm
+from django.core.exceptions import ObjectDoesNotExist
 
 
 def index(request):
@@ -21,15 +23,25 @@ def about(request):
     return render(request,'eventhub/about.html', context={'active':active})
 
 def create(request):
+    if request.method == "POST":
+        for key, value in request.POST.items():
+            print(key, value)
+
     active = ["","","","active","","",""]
+
     return render(request,'eventhub/create_event.html', context={'active':active})
 
 def event(request, eventID):
     active = ["","","","","","",""]
+    try:
+        Like.objects.get(user=request.user,event=eventID)
+        button = '<button id="like" type="button" class="btn btn-primary btn-lg active" onclick="removeLike('+eventID+')">Unlike</button>'
+    except ObjectDoesNotExist:
+        button = '<button id="like" type="button" class="btn btn-primary btn-lg" onclick="addLike('+eventID+')">Like</button>'
     e = Event.objects.get(id=eventID)
     p = e.pos.split(',')
     pos = 'https://www.google.com/maps/embed/v1/place?q='+p[0]+'%2C'+p[1]+'&key=AIzaSyAk67VAOhMC_8HSXADhnLSoFN1Al8b_tGU'
-    return render(request, 'eventhub/event.html', context={'event': e, 'active':active, 'pos':pos})
+    return render(request, 'eventhub/event.html', context={'button':button, 'event': e, 'active':active, 'pos':pos, 'isCreator': (e.creator == request.user)})
 
 def category(request, cat):
     active = ["","","","","","",""]
@@ -66,8 +78,7 @@ def post_event(request):
     return render(request, 'create_event.html', {'form': form})
 
 def get_creator(request):
-    currentUser = request.user
-    pref = Pref.objects.get(user=currentUser).preference
+    pref = Pref.objects.get(user=request.user).preference
     return HttpResponse(pref)
 
 @ensure_csrf_cookie
@@ -79,9 +90,22 @@ def post_prefs(request):
 
 def recommended(request):
     prefs = Pref.objects.get(user=request.user).preference.split(',')
-    print(prefs)
-    events = Event.objects.filter(category__in=prefs)
+    events = Event.objects.filter(category__in=prefs).order_by('-likes')[:6]
     return render(request, 'eventhub/browse.html', context={'title': 'Recommended Events:', 'events': events})
+
+def add_like(request, eid):
+    e = Event.objects.get(id=eid)
+    e.likes += 1
+    e.save()
+    Like.objects.create(user=request.user, event=e).save()
+    return HttpResponse("Successful")
+
+def remove_like(request, eid):
+    e = Event.objects.get(id=eid)
+    e.likes -= 1
+    e.save()
+    Like.objects.get(user=request.user, event=eid).delete()
+    return HttpResponse("Successful")
 
 #if successful at logging
 class MyRegistrationView(RegistrationView):

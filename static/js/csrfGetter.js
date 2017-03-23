@@ -1,3 +1,8 @@
+function _(i) {
+  var e = document.getElementById(i);
+  return e
+}
+
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {

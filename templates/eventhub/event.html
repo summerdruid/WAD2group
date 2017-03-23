@@ -4,7 +4,7 @@
 
 
 {% block body_block %}
-
+<script type="text/javascript" src="{% static 'js/likeHandler.js' %}"></script>
 <div class="panel panel-default">
 	{% if event %}
 		<div class="panel-heading"><h2>{{ event.title }}</h2></div>
@@ -20,7 +20,9 @@
 		</div>
 		<div class='row'>
 		{% if user.is_authenticated %}
-			<button type="button" class="btn btn-primary btn-lg">Like</button>
+			{% autoescape off %}{{button}}{% endautoescape %}
+		{% endif %}
+		{% if isCreator %}
 			<button type="button" class="btn btn-primary btn-lg">Delete</button>
 		{% endif %}
 		</div>

@@ -5,7 +5,7 @@
 
 {% block body_block %}
 
-<div class="panel panel default">
+<div class="panel panel-default">
   <div class="panel-heading"><h2>{{title}}</h2></div>
   <div class="panel-body">
     <div class="row">
@@ -16,7 +16,7 @@
             <h4>{{e.title}}</h4>
           </div>
           <div class="panel-body">
-            <a href="eventhub/event/{{e.id}}" class="btn btn-primary">Details</a>
+            <a href="/eventhub/event/{{e.id}}" class="btn btn-primary">Details</a>
             <p style="float: right; width: 50%;">{{e.datetime}}</p>
           </div>
         </div>

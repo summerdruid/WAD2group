@@ -1,12 +1,52 @@
 {% extends 'eventhub/base.html' %}
 {% block body_block  %}
 
-<h1>Create An Event!</h1>
 
-<form action="/create_event/" method="post">
-  {% crsf_token %}
-  {{ form }}
-  <input type="submit" value="Create!"/>
-</form>
-
+<div class="panel panel-default">
+  <div class="panel-heading"><h2>Create An Event</h2></div>
+  <div class="panel-body">
+    <form class="form-horizontal" name="create" action="/eventhub/create_event/" method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="email">Title:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" name="title" placeholder="Enter event title">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="pwd">Category:</label>
+        <div class="col-sm-10">
+          <select class="form-control" name="category" style="width: 20%;">
+            <option value="music">Music</option>
+            <option value="business">Business</option>
+            <option value="Social">Social</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="pwd">Postcode:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" name="postcode" placeholder="Enter postcode" style="width: 20%;">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="pwd">Date and Time:</label>
+        <div class="col-sm-10">
+          <input type="datetime-local" class="form-control" name="datetime">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="pwd">Description:</label>
+        <div class="col-sm-10">
+          <textarea class="form-control" name="desc" placeholder="Write a description. Consider things like driving instructions and things to bring."></textarea>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
 {% endblock %}
