@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from registration.backends.simple.views import RegistrationView
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import ensure_csrf_cookie
@@ -24,12 +24,22 @@ def about(request):
 
 def create(request):
     if request.method == "POST":
-        for key, value in request.POST.items():
+        p = request.POST
+        for key, value in p.items():
             print(key, value)
-
-    active = ["","","","active","","",""]
-
-    return render(request,'eventhub/create_event.html', context={'active':active})
+        e = Event.objects.create(
+                                category=p['category'],
+                                title=p['title'],
+                                loc=p['loc'],
+                                creator=request.user,
+                                datetime=p['datetime'],
+                                desc=p['desc'],
+                                pos=p['postcode'],
+                                )
+        return HttpResponseRedirect('/eventhub/event/'+e.id)
+    else:
+        active = ["","","","active","","",""]
+        return render(request,'eventhub/create_event.html', context={'active':active})
 
 def event(request, eventID):
     active = ["","","","","","",""]
@@ -39,8 +49,7 @@ def event(request, eventID):
     except ObjectDoesNotExist:
         button = '<button id="like" type="button" class="btn btn-primary btn-lg" onclick="addLike('+eventID+')">Like</button>'
     e = Event.objects.get(id=eventID)
-    p = e.pos.split(',')
-    pos = 'https://www.google.com/maps/embed/v1/place?q='+p[0]+'%2C'+p[1]+'&key=AIzaSyAk67VAOhMC_8HSXADhnLSoFN1Al8b_tGU'
+    pos = 'https://www.google.com/maps/embed/v1/place?q='+e.pos+'&key=AIzaSyAk67VAOhMC_8HSXADhnLSoFN1Al8b_tGU'
     return render(request, 'eventhub/event.html', context={'button':button, 'event': e, 'active':active, 'pos':pos, 'isCreator': (e.creator == request.user)})
 
 def category(request, cat):
