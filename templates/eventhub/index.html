@@ -12,12 +12,12 @@
       {% for e in events.music %}
         <div class="col-sm-6 col-md-4">
           <div class="panel panel-default">
-            <div class="panel-heading" style="min-height: 6em;">
+            <div class="panel-heading" id="eventTitle">
               <h4>{{e.title}}</h4>
             </div>
-            <div class="panel-body">
+            <div class="panel-body" id="eventBody">
               <a href="/eventhub/event/{{e.id}}" class="btn btn-primary">Details</a>
-              <p style="float: right; width: 50%;">{{e.datetime}}</p>
+              <p>{{e.datetime}}</p>
             </div>
           </div>
         </div>
@@ -33,12 +33,12 @@
       {% for e in events.business %}
       <div class="col-sm-6 col-md-4">
         <div class="panel panel-default">
-          <div class="panel-heading" style="min-height: 6em;">
+          <div class="panel-heading" id="eventTitle">
             <h4>{{e.title}}</h4>
           </div>
-          <div class="panel-body">
+          <div class="panel-body" id="eventBody">
             <a href="/eventhub/event/{{e.id}}" class="btn btn-primary">Details</a>
-            <p style="float: right; width: 50%;">{{e.datetime}}</p>
+            <p>{{e.datetime}}</p>
           </div>
         </div>
       </div>
@@ -54,12 +54,12 @@
       {% for e in events.social %}
       <div class="col-sm-6 col-md-4">
         <div class="panel panel-default">
-          <div class="panel-heading" style="min-height: 6em;">
+          <div class="panel-heading" id="eventTitle">
             <h4>{{e.title}}</h4>
           </div>
-          <div class="panel-body">
+          <div class="panel-body" id="eventBody">
             <a href="/eventhub/event/{{e.id}}" class="btn btn-primary">Details</a>
-            <p style="float: right; width: 50%;">{{e.datetime}}</p>
+            <p>{{e.datetime}}</p>
           </div>
         </div>
       </div>

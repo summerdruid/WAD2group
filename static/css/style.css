@@ -12,11 +12,6 @@ body {
   margin-right: auto;
 }
 
-#content {
-
-
-}
-
 #leftsidebar, #rightsidebar, #main{
   background-color: white;
   padding: 20px;
@@ -47,6 +42,10 @@ body {
 #footer {
   padding-top: 17px;
 }
+
+div#eventTitle {height: 5em;}
+div#eventBody {height: 6em;}
+div#eventBody>p {float: right; width: 175px;}
 
 /* media icons */
 .fa {

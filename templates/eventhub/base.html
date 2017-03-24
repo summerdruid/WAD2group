@@ -29,7 +29,7 @@
 
 				<!-- logo -->
 				<div class="navbar-header">
-					<a href="/eventhub" class="navbar-brand">EventHub</a>
+					<a href="{% url 'index' %}" class="navbar-brand">EventHub</a>
 				</div>
 
 				<!-- menu items-->
@@ -37,17 +37,29 @@
 
 					<ul class="nav navbar-nav navbar-top">
 						<li class="{{active.0}}"><a href="{% url 'index' %}">Home</a></li>
+<<<<<<< HEAD
 						<li class="{{active.1}}"><a href="/eventhub/about/">About</a></li>
 						{% if user.is_authenticated %}
 						<li class="{{active.2}}"><a href="/eventhub/recommended/">Recommended</a></li>
 						<li class="{{active.3}}"><a href="/eventhub/create_event/">Create Event</a></li>
+=======
+						<li class="{{active.1}}"><a href="{% url 'about' %}">About</a></li>
+						{% if user.is_authenticated %}
+						<li class="{{active.2}}"><a href="{% url 'recommended' %}">Recommended</a></li>
+						<li class="{{active.3}}"><a href="{% url 'create' %}">Create Event</a></li>
+>>>>>>> 1b1a7150160b0a2350d60e4cca2189ed0d5035c7
 						{% endif %}
 					</ul>
 
 					<ul class="nav navbar-nav navbar-right">
 						{% if user.is_authenticated %}
+<<<<<<< HEAD
 						<li class="{{active.4}}"><a href="/eventhub/profile/">Profile</a></li>
 						<li><a href="{% url 'auth_logout' %}?next=/eventhub/">Logout</a></li>
+=======
+						<li class="{{active.4}}"><a href="{% url 'profile' %}">Profile</a></li>
+						<li><a href="{% url 'auth_logout' %}?next={% url 'index' %}">Logout</a></li>
+>>>>>>> 1b1a7150160b0a2350d60e4cca2189ed0d5035c7
 						{% else %}
 						<li class="{{active.5}}"><a href="{% url 'auth_login' %}">Sign In</a></li>
 						<li class="{{active.6}}"><a href="{% url 'registration_register' %}">Sign Up</a></li>
@@ -67,7 +79,7 @@
 
 				<!-- searchbar div-->
 				<div>
-					<h4>Serach bar</h4>
+					<h4>Search bar</h4>
 					<form>
 						<div class="input-group">
 							<input type="text" class="form-control" placeholder="Search">
@@ -110,23 +122,10 @@
 
 			<!--right-side-bar div-->
 			<div id="rightsidebar">
-				<!-- media div-->
-				<h4>Social Media</h4>
-				<div id="icon">
-
-					<!-- icon-->
-					<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-					<!--icons -->
-					<a href="#" class="fa fa-facebook"></a>
-					<a href="#" class="fa fa-google"></a>
-
-				</div><!-- media div end-->
-
 				<!-- recently visited div-->
 				<div class="clear">
+					<h3>Recently Visited</h3>
 					<hr>
-					<h4>Recently Visited</h4>
 					{% if recent %}
 						<div>
 							{% if events %}
@@ -150,7 +149,11 @@
 				<!-- menu items-->
 				<div>
 					<ul class="nav navbar-nav navbar-top">
+<<<<<<< HEAD
 						<li><a href="/eventhub/contact/">contact us</a></li>
+=======
+						<li><a href="/eventhub/contact">contact us</a></li>
+>>>>>>> 1b1a7150160b0a2350d60e4cca2189ed0d5035c7
 					</ul>
 				</div>
 				</div>
