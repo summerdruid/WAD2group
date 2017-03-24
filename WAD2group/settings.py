@@ -32,7 +32,7 @@ SECRET_KEY = '4gn_37_=&jb@wujk#=m-5e8#vy5m)5)pf+a4-#e6ot-n5l4(sj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['michaelstarkey.pythonanywhere.com']
 
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 STATIC_DIR = os.path.join(BASE_DIR,'static')
