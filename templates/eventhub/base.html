@@ -37,17 +37,29 @@
 
 					<ul class="nav navbar-nav navbar-top">
 						<li class="{{active.0}}"><a href="{% url 'index' %}">Home</a></li>
+<<<<<<< HEAD
+						<li class="{{active.1}}"><a href="/eventhub/about/">About</a></li>
+						{% if user.is_authenticated %}
+						<li class="{{active.2}}"><a href="/eventhub/recommended/">Recommended</a></li>
+						<li class="{{active.3}}"><a href="/eventhub/create_event/">Create Event</a></li>
+=======
 						<li class="{{active.1}}"><a href="{% url 'about' %}">About</a></li>
 						{% if user.is_authenticated %}
 						<li class="{{active.2}}"><a href="{% url 'recommended' %}">Recommended</a></li>
 						<li class="{{active.3}}"><a href="{% url 'create' %}">Create Event</a></li>
+>>>>>>> 1b1a7150160b0a2350d60e4cca2189ed0d5035c7
 						{% endif %}
 					</ul>
 
 					<ul class="nav navbar-nav navbar-right">
 						{% if user.is_authenticated %}
+<<<<<<< HEAD
+						<li class="{{active.4}}"><a href="/eventhub/profile/">Profile</a></li>
+						<li><a href="{% url 'auth_logout' %}?next=/eventhub/">Logout</a></li>
+=======
 						<li class="{{active.4}}"><a href="{% url 'profile' %}">Profile</a></li>
 						<li><a href="{% url 'auth_logout' %}?next={% url 'index' %}">Logout</a></li>
+>>>>>>> 1b1a7150160b0a2350d60e4cca2189ed0d5035c7
 						{% else %}
 						<li class="{{active.5}}"><a href="{% url 'auth_login' %}">Sign In</a></li>
 						<li class="{{active.6}}"><a href="{% url 'registration_register' %}">Sign Up</a></li>
@@ -86,14 +98,19 @@
 						<h4>See All:</h4>
 						Order by:
 						<ul>
+<<<<<<< HEAD
+							<li><a href="/eventhub/search/date/">Date</a></li>
+							<li><a href="/eventhub/search/location/">Location</a></li>
+=======
 							<li><a href="/eventhub/search/?q=date">Date</a></li>
 							<li><a href="/eventhub/search/?q=location">Location</a></li>
+>>>>>>> c4fd73de2afe9107f894c4a699a9f395dcd876f2
 							<li>Category</a></li>
 							<div>
 								<ul>
-									<li> <a href="/eventhub/category/music">Music</a> </li>
-									<li> <a href="/eventhub/category/business">Business</a> </li>
-									<li> <a href="/eventhub/category/social">Social</a> </li>
+									<li> <a href="/eventhub/category/music/">Music</a> </li>
+									<li> <a href="/eventhub/category/business/">Business</a> </li>
+									<li> <a href="/eventhub/category/social/">Social</a> </li>
 								</ul>
 							</div>
 						</ul>
@@ -137,7 +154,11 @@
 				<!-- menu items-->
 				<div>
 					<ul class="nav navbar-nav navbar-top">
+<<<<<<< HEAD
+						<li><a href="/eventhub/contact/">contact us</a></li>
+=======
 						<li><a href="/eventhub/contact">contact us</a></li>
+>>>>>>> 1b1a7150160b0a2350d60e4cca2189ed0d5035c7
 					</ul>
 				</div>
 				</div>
