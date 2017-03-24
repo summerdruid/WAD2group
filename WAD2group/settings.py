@@ -35,7 +35,8 @@ DEBUG = True
 ALLOWED_HOSTS = ['michaelstarkey.pythonanywhere.com']
 
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
-STATIC_DIR = '/home/michaelstarkey/WAD2group/static'
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [STATIC_DIR, ]
 MEDIA_DIR = os.path.join(BASE_DIR,'media')
 
 print(STATIC_DIR)
