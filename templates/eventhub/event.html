@@ -23,7 +23,7 @@
 			{% autoescape off %}{{button}}{% endautoescape %}
 		{% endif %}
 		{% if isCreator %}
-			<a href="/eventhub/delete/"><button type="button" class="btn btn-primary btn-lg">Delete</button></a>
+			<a href="/eventhub/delete/{{event.id}}"><button type="button" class="btn btn-primary btn-lg">Delete</button></a>
 			<a href="/eventhub/edit/{{event.id}}"><button type="button" class="btn btn-primary btn-lg">Edit</button></a>
 		{% endif %}
 		</div>

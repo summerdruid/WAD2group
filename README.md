@@ -1,23 +1,9 @@
-# WAD2group
+# Eventhub
 
-## Things that still need to be done:
-
-Specification
-
-~~[Done]Login,~~  
-~~[Done]Signup,~~  
-~~[Done]logout,~~  
-~~[Done]Create event,~~  
-~~[Done]View event,~~  
-Share event,  
-~~Look for event,~~  
-~~[Done]Like event,~~  
-Share event,  
-~~[Done]Recommend event,~~  
-Delete event,  
-~~Edit event,~~  
-[Not done]Privacy,  
-[Not done]Notify users who liked an event that has been edited,  
-~~[Done]navigate to categories,~~  
-~~check for events in a location,~~  
-~~[Done]see event location on a map,~~  
+## Requirements and Usage
+Eventhub uses Python3.x and the django framework, python3 can be downloaded from https://www.python.org/ and the required modules can be installed using:  
+`pip install -r requirements.txt`  
+Once installed, test data can be added to the server with:  
+`python populate_eventhub.py`  
+Finally, the application can be used locally by:  
+`python manage.py runserver` and navigating to http://127.0.0.1:8000/

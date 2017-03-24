@@ -6,17 +6,26 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import ensure_csrf_cookie
 from eventhub.models import Event, Pref, Like
 from django.db.models import Q
-from eventhub.forms import EventForm
 from django.core.exceptions import ObjectDoesNotExist
-import dateutil.parser
-from django.db.models.signals import post_save
+from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from datetime import datetime, date, time
+from django.core.mail import EmailMessage
 import re
 
-@receiver(post_save, sender=User)
-def userNew(sender, **kwargs):
-    print('uhhh')
+@receiver(pre_save, sender=Event)
+def eventEdit(sender, instance, **kwargs):
+    emails = []
+    for u in Like.objects.filter(event=instance):
+            emails.append(User.objects.get(username=u.user).email)
+    if emails != []:
+        print("sending email",emails)
+        email = EmailMessage(
+            'An event you like has been edited.',
+            'The event '+instance.title+' has been edited, see the changes at the eventhub website!',
+            to=emails,
+        )
+        email.send()
 
 def index(request):
     music = Event.objects.filter(category="music")[:3]
@@ -32,44 +41,62 @@ def about(request):
     return render(request,'eventhub/about.html', context={'active':active})
 
 def eventValidator(postvars):
-    if len(postvars['title']) > 15:
-        return False
+    out = ''
+    if len(postvars['title']) > 150:
+        out += 'The title should be shorter than 150 characters.<br/> '
     if postvars['category'] == '':
-        return False
+        out += 'The category should be one of the categories.<br/> '
     if not re.match(r"^[A-Z]{1,2}[0-9]{1,2} ?[0-9][A-Z]{2}$", postvars['postcode'].upper()):
-        return False
+        out += 'The postcode should be a valid postcode.<br/> '
     if datetime.now() > datetime.strptime(postvars['datetime'], "%Y-%m-%dT%H:%M"):
-        return False
+        out += 'The date should be in the future.<br/> '
     if len(postvars['loc']) > 128:
-        return False
+        out += 'The location should be shorter than 128 characters.<br/> '
     if len(postvars['desc']) > 1000:
-        return False
-    return True
+        out += 'The description should be less than 1000 characters.<br/> '
+    return out
 
+@login_required
 def edit(request, eid):
+    if request.user != Event.objects.get(id=eid).creator:
+        return HttpResponseRedirect('/')
+
+    initVal = {'url':'/eventhub/edit/'+eid+'/'}
     if request.method == "POST":
         p = request.POST
+        error = eventValidator(p)
+        if error == '':
+            e = Event.objects.get(id=eid)
+            e.title = p['title']
+            e.category = p['category']
+            e.loc = p['loc']
+            e.datetime = p['datetime']
+            e.desc = p['desc']
+            e.pos = p['postcode']
+            e.save()
+            return HttpResponseRedirect('/eventhub/event/'+eid)
+        else:
+            initVal['cat']=p['category']
+            initVal['title']=p['title']
+            initVal['loc']=p['loc']
+            initVal['dt']=p['datetime']
+            initVal['desc']=p['desc']
+            initVal['pc']=p['postcode']
+            initVal['error'] = error
+    else:
         e = Event.objects.get(id=eid)
-        e.title = p['title']
-        e.category = p['category']
-        e.loc = p['loc']
-        e.datetime = p['datetime']
-        e.desc = p['desc']
-        e.pos = p['postcode']
-        e.save()
-        return HttpResponseRedirect('/eventhub/event/'+eid)
-
-    e = Event.objects.get(id=eid)
-    x = str(e.datetime).split(' ')
-    dt = x[0]+'T'+x[1][:5]
-    initVal = {'title':e.title,'cat':e.category,'dt':dt,'pc':e.pos,'loc':e.loc,'desc':e.desc,'url':'/eventhub/edit/'+eid+'/'}
+        x = str(e.datetime).split(' ')
+        dt = x[0]+'T'+x[1][:5]
+        initVal = {'title':e.title,'cat':e.category,'dt':dt,'pc':e.pos,'loc':e.loc,'desc':e.desc,'url':'/eventhub/edit/'+eid+'/'}
     return render(request,'eventhub/create_event.html', context={'active':["","","","","","",""], 'initVal':initVal, 'title':'Edit Event'})
 
+@login_required
 def create(request):
     initVal = {'url':"/eventhub/create_event/"}
     if request.method == "POST":
         p = request.POST
-        if eventValidator(p):
+        error = eventValidator(p)
+        if error == '':
             e = Event.objects.create(
                                     category=p['category'],
                                     title=p['title'],
@@ -88,12 +115,7 @@ def create(request):
             initVal['dt']=p['datetime']
             initVal['desc']=p['desc']
             initVal['pc']=p['postcode']
-            initVal['error'] = '''The title should be shorter than 10 characters.<br/>
-                                The category should be one of the categories.<br/>
-                                The location should be shorter than 128 characters.<br/>
-                                The date should be in the future.<br/>
-                                The postcode should be a valid postcode.<br/>
-                                The description should be less than 1000 characters.<br/>'''
+            initVal['error'] = error
     active = ["","","","active","","",""]
     return render(request,'eventhub/create_event.html', context={'active':active, 'initVal':initVal, 'title':'Create Event'})
 
@@ -116,7 +138,8 @@ def category(request, cat):
     events = Event.objects.filter(category=cat)
     return render(request, 'eventhub/browse.html', context={'events': events, 'title': 'Category: '+cat})
 
-def search(request, search):
+def search(request):
+    search = request.GET.get('q','')
     active = ["","","","","","",""]
     title = 'Order by: '+search
     if search == 'date':
@@ -128,22 +151,13 @@ def search(request, search):
         events = Event.objects.filter(Q(title__contains=search) | Q(loc__contains=search) | Q(category__contains=search))
     return render(request, 'eventhub/browse.html', context={'events': events, 'title': title})
 
+@login_required
 def profile(request):
     active = ["","","","","active","",""]
     checked = ["checked","checked",""]
     currentUser = request.user
     events = Event.objects.filter(creator=currentUser)[:3]
     return render(request, 'eventhub/profile.html', context={'checked': checked, 'active': active, 'user':currentUser, 'events':events})
-
-def post_event(request):
-    if request.method == 'POST':
-        form = NameForm(request.POST)
-        if form.is_valid():
-            return HttpResponseRedirect('/')
-        else:
-            form = EventForm()
-
-    return render(request, 'create_event.html', {'form': form})
 
 def get_creator(request):
     pref = Pref.objects.get_or_create(user=request.user)
@@ -159,6 +173,7 @@ def post_prefs(request):
     p.save()
     return HttpResponse('Updated!')
 
+@login_required
 def recommended(request):
     prefs = Pref.objects.get(user=request.user).preference.split(',')
     events = Event.objects.filter(category__in=prefs).order_by('-likes')[:6]
@@ -178,7 +193,20 @@ def remove_like(request, eid):
     Like.objects.get(user=request.user, event=eid).delete()
     return HttpResponse("Successful")
 
+<<<<<<< HEAD
 
+=======
+@login_required
+def delete(request, eid):
+    if request.user != Event.objects.get(id=eid).creator:
+        return HttpResponseRedirect('/')
+
+    if request.method == "POST":
+        Event.objects.get(id=eid).delete()
+        return HttpResponseRedirect('/')
+
+    return render(request,'eventhub/delete.html', context={'eventid':eid})
+>>>>>>> c4fd73de2afe9107f894c4a699a9f395dcd876f2
 
 #if successful at logging
 class MyRegistrationView(RegistrationView):
