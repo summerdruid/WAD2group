@@ -3,21 +3,21 @@
 
 
 <div class="panel panel-default">
-  <div class="panel-heading"><h2>Create An Event</h2></div>
+  <div class="panel-heading"><h2>{{title}}</h2></div>
   <div class="panel-body">
-    <form class="form-horizontal" name="create" action="/eventhub/create_event/" method="post">
+    <form class="form-horizontal" name="create" action="{{initVal.url}}" method="post">
       {% csrf_token %}
       <div class="form-group">
         <label class="control-label col-sm-2" for="email">Title:</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" name="title" style="width: 215px;" placeholder="Enter event title">
+          <input type="text" class="form-control" name="title" style="width: 215px;" placeholder="Enter event title", value="{{initVal.title}}">
         </div>
       </div>
       <div class="form-group">
         <label class="control-label col-sm-2" for="pwd">Category:</label>
         <div class="col-sm-10">
           <select class="form-control" name="category" style="width: 215px;">
-            <option value="{{initVal.0}}">{{initVal.0}}</option>
+            <option value="{{initVal.cat}}">{{initVal.cat}}</option>
             <option value="music">Music</option>
             <option value="business">Business</option>
             <option value="social">Social</option>
@@ -27,25 +27,25 @@
       <div class="form-group">
         <label class="control-label col-sm-2" for="pwd">Date and Time:</label>
         <div class="col-sm-10">
-          <input  style="width: 215px;" type="datetime-local" class="form-control" name="datetime" value="{{initVal.1}}">
+          <input  style="width: 215px;" type="datetime-local" class="form-control" name="datetime" value="{{initVal.dt}}">
         </div>
       </div>
       <div class="form-group">
         <label class="control-label col-sm-2" for="pwd">Postcode:</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" name="postcode" placeholder="Enter postcode" style="width: 215px;" value="{{initVal.2}}">
+          <input type="text" class="form-control" name="postcode" placeholder="Enter postcode" style="width: 215px;" value="{{initVal.pc}}">
         </div>
       </div>
       <div class="form-group">
         <label class="control-label col-sm-2" for="pwd">Address:</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" name="loc" placeholder="Enter further address details" style="width: 100%;" value="{{initVal.3}}">
+          <input type="text" class="form-control" name="loc" placeholder="Enter further address details" style="width: 100%;" value="{{initVal.loc}}">
         </div>
       </div>
       <div class="form-group">
         <label class="control-label col-sm-2" for="pwd">Description:</label>
         <div class="col-sm-10">
-          <textarea class="form-control" name="desc" placeholder="Write a description. Consider things like driving instructions and things to bring." value="{{initVal.4}}"></textarea>
+          <textarea class="form-control" name="desc" placeholder="Write a description. Consider things like driving instructions and things to bring.">{{initVal.desc}}</textarea>
         </div>
       </div>
       <div class="form-group">
@@ -54,6 +54,7 @@
         </div>
       </div>
     </form>
+    <p>{% autoescape off %}{{initVal.error}}{% endautoescape %}</p>
   </div>
 </div>
 {% endblock %}

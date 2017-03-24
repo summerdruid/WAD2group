@@ -15,4 +15,5 @@ urlpatterns = [ url(r'^$', views.index, name='index'),
                 url(r'post_prefs/', views.post_prefs, name='post_prefs'),
                 url(r'removeLike/(?P<eid>[\w\-]+)/$', views.remove_like, name='remove_like'),
                 url(r'addLike/(?P<eid>[\w\-]+)/$', views.add_like, name='add_like'),
+                url(r'edit/(?P<eid>[\w\-]+)/$', views.edit, name='edit'),
             ]

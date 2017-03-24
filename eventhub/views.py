@@ -2,12 +2,21 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from registration.backends.simple.views import RegistrationView
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.views.decorators.csrf import ensure_csrf_cookie
 from eventhub.models import Event, Pref, Like
 from django.db.models import Q
 from eventhub.forms import EventForm
 from django.core.exceptions import ObjectDoesNotExist
+import dateutil.parser
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from datetime import datetime, date, time
+import re
 
+@receiver(post_save, sender=User)
+def userNew(sender, **kwargs):
+    print('uhhh')
 
 def index(request):
     music = Event.objects.filter(category="music")[:3]
@@ -22,31 +31,77 @@ def about(request):
     active = ["","active","","","","",""]
     return render(request,'eventhub/about.html', context={'active':active})
 
-def create(request, eid=None):
+def eventValidator(postvars):
+    if len(postvars['title']) > 15:
+        return False
+    if postvars['category'] == '':
+        return False
+    if not re.match(r"^[A-Z]{1,2}[0-9]{1,2} ?[0-9][A-Z]{2}$", postvars['postcode'].upper()):
+        return False
+    if datetime.now() > datetime.strptime(postvars['datetime'], "%Y-%m-%dT%H:%M"):
+        return False
+    if len(postvars['loc']) > 128:
+        return False
+    if len(postvars['desc']) > 1000:
+        return False
+    return True
+
+def edit(request, eid):
     if request.method == "POST":
         p = request.POST
-        for key, value in p.items():
-            print(key, value)
-        e = Event.objects.create(
-                                category=p['category'],
-                                title=p['title'],
-                                loc=p['loc'],
-                                creator=request.user,
-                                datetime=p['datetime'],
-                                desc=p['desc'],
-                                pos=p['postcode'],
-                                )
-        return HttpResponseRedirect('/eventhub/event/'+str(e.id))
-    else:
-        active = ["","","","active","","",""]
-        return render(request,'eventhub/create_event.html', context={'active':active, 'initVal':["","","","",""]})
+        e = Event.objects.get(id=eid)
+        e.title = p['title']
+        e.category = p['category']
+        e.loc = p['loc']
+        e.datetime = p['datetime']
+        e.desc = p['desc']
+        e.pos = p['postcode']
+        e.save()
+        return HttpResponseRedirect('/eventhub/event/'+eid)
+
+    e = Event.objects.get(id=eid)
+    x = str(e.datetime).split(' ')
+    dt = x[0]+'T'+x[1][:5]
+    initVal = {'title':e.title,'cat':e.category,'dt':dt,'pc':e.pos,'loc':e.loc,'desc':e.desc,'url':'/eventhub/edit/'+eid+'/'}
+    return render(request,'eventhub/create_event.html', context={'active':["","","","","","",""], 'initVal':initVal, 'title':'Edit Event'})
+
+def create(request):
+    initVal = {'url':"/eventhub/create_event/"}
+    if request.method == "POST":
+        p = request.POST
+        if eventValidator(p):
+            e = Event.objects.create(
+                                    category=p['category'],
+                                    title=p['title'],
+                                    loc=p['loc'],
+                                    creator=request.user,
+                                    datetime=p['datetime'],
+                                    desc=p['desc'],
+                                    pos=p['postcode'],
+                                    )
+            e.save()
+            return HttpResponseRedirect('/eventhub/event/'+str(e.id))
+        else:
+            initVal['cat']=p['category']
+            initVal['title']=p['title']
+            initVal['loc']=p['loc']
+            initVal['dt']=p['datetime']
+            initVal['desc']=p['desc']
+            initVal['pc']=p['postcode']
+            initVal['error'] = '''The title should be shorter than 10 characters.<br/>
+                                The category should be one of the categories.<br/>
+                                The location should be shorter than 128 characters.<br/>
+                                The date should be in the future.<br/>
+                                The postcode should be a valid postcode.<br/>
+                                The description should be less than 1000 characters.<br/>'''
+    active = ["","","","active","","",""]
+    return render(request,'eventhub/create_event.html', context={'active':active, 'initVal':initVal, 'title':'Create Event'})
 
 def event(request, eventID):
     active = ["","","","","","",""]
     try:
         currentUser=request.user
         button = ''
-        print(currentUser.username)
         if currentUser.username != "":
             Like.objects.get(user=request.user,event=eventID)
             button = '<button id="like" type="button" class="btn btn-primary btn-lg active" onclick="removeLike('+eventID+')">Unlike</button>'
@@ -91,8 +146,8 @@ def post_event(request):
     return render(request, 'create_event.html', {'form': form})
 
 def get_creator(request):
-    pref = Pref.objects.get(user=request.user).preference
-    return HttpResponse(pref)
+    pref = Pref.objects.get_or_create(user=request.user)
+    return HttpResponse(pref[0].preference)
 
 @ensure_csrf_cookie
 def post_prefs(request):
