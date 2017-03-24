@@ -7,7 +7,6 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from eventhub.models import Event, Pref, Like
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
-import dateutil.parser
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from datetime import datetime, date, time
