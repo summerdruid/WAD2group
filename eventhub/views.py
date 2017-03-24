@@ -48,7 +48,9 @@ def eventValidator(postvars):
         out += 'The category should be one of the categories.<br/> '
     if not re.match(r"^[A-Z]{1,2}[0-9]{1,2} ?[0-9][A-Z]{2}$", postvars['postcode'].upper()):
         out += 'The postcode should be a valid postcode.<br/> '
-    if datetime.now() > datetime.strptime(postvars['datetime'], "%Y-%m-%dT%H:%M"):
+    if r.match(postvars['datetime']) is None:
+        out += 'The date time must be a valid format.'
+    elif datetime.now() > datetime.strptime(postvars['datetime'], "%Y-%m-%dT%H:%M"):
         out += 'The date should be in the future.<br/> '
     if len(postvars['loc']) > 128:
         out += 'The location should be shorter than 128 characters.<br/> '
