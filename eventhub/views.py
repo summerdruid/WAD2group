@@ -195,9 +195,6 @@ def remove_like(request, eid):
     Like.objects.get(user=request.user, event=eid).delete()
     return HttpResponse("Successful")
 
-<<<<<<< HEAD
-
-=======
 @login_required
 def delete(request, eid):
     if request.user != Event.objects.get(id=eid).creator:
@@ -208,7 +205,6 @@ def delete(request, eid):
         return HttpResponseRedirect('/')
 
     return render(request,'eventhub/delete.html', context={'eventid':eid})
->>>>>>> c4fd73de2afe9107f894c4a699a9f395dcd876f2
 
 #if successful at logging
 class MyRegistrationView(RegistrationView):
